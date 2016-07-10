@@ -8,7 +8,7 @@ before_install:
   - docker pull node:6.3.0-slim
   - docker pull mongo:3.2
   - docker run --name mongo-test -d mongo
-  - docker build -t xotl/Wize-Challenge
+  - docker build -t xotl/Wize-Challenge .
   - docker run -d --name wize-challenge --link mongo-test:mongodb -e MONGODB_CONNECTION_STRING=mongodb://mongodb/exampledb xotl/Wize-Challenge
   - docker ps -a
 install:
