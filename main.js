@@ -7,7 +7,11 @@ var util = require('./utils');
 var mongoose = require('mongoose');
 
 const 
-  PORT = process.env.PORT || 3000;
+  PORT = process.env.PORT || 3000,
+  catsSchema = mongoose.Schema({
+    name: String,
+    color:  String
+  });
 
 
 var options = {};
@@ -32,10 +36,7 @@ app.get('/health', function (req, res) {
 
 app.get('/database', function (req, res) {
 
-  var catsSchema = mongoose.Schema({
-    name: String,
-    color:  String
-  });
+  
   var cats = mongoose.model('cats', catsSchema);
   util.mongooseFind(cats)
     .then( results => res.send(results) )
