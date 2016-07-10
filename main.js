@@ -9,23 +9,12 @@ var mongoose = require('mongoose');
 const 
   PORT = process.env.PORT || 3000;
 
-/**
- * Require databse configuration depending on environment
- */
-var conf = {
-    servers: [[process.env.DATABASE_IP, process.env.DATABASE_PORT]],
-    database: process.env.DATABASE_NAME,
-    user: process.env.DATABASE_USER,
-    password: process.env.DATABASE_PASSWORD,
-    replicaSet: null
-};
+
 var options = {};
+var connectionString = process.env.MONGODB_CONNECTION_STRING;
 
-var connectionString = util.createConnectionString(conf);
-
-
-if (conf.replicaSet) {
-  options.replset = conf.replicaSet;
+if (!connectionString.startsWith('mongodb://')){
+  connectionString = `mongodb://${connectionString}`;
 }
 
 mongoose.connect(connectionString, options);
