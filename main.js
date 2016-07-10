@@ -19,6 +19,11 @@ if (!connectionString.startsWith('mongodb://')){
 
 mongoose.connect(connectionString, options);
 
+const catsSchema = mongoose.Schema({
+  name: String,
+  color:  String
+});
+
 
 app.get('/', function (req, res) {
   res.send('Hello World!');
@@ -30,8 +35,8 @@ app.get('/health', function (req, res) {
 
 app.get('/database', function (req, res) {
 
-  var restaurants = mongoose.model('restaurants');
-  mongooseFind(restaurants)
+  var cats = mongoose.model('cats', catsSchema);
+  mongooseFind(cats)
     .then( results => res.send(results) )
     .catch( err => {
       res.send(err)
