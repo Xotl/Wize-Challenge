@@ -1,10 +1,12 @@
 FROM node:6.3.0-slim
 
-ADD package.json /opt/app/package.json
-WORKDIR /opt/app
+ADD package.json /usr/src/app/package.json
+
+WORKDIR /usr/src/app
 RUN npm install
 
-ADD ./ /opt/app
+VOLUME ["/usr/src/app"]
+ADD ./ /usr/src/app
 CMD ["npm", "start"]
 
 EXPOSE 3000
