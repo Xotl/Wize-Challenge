@@ -7,15 +7,19 @@ const
 
 describe('Mongoose connection', function() {
     const connectionString = process.env.MONGODB_CONNECTION_STRING
-
     var catSchema, Cat
+
+    after(function(done) {
+        mongoose.connection.close(done)
+    })
+
 
     it('has a connection string present', function() {
         assert.isString(connectionString)
         assert.isAbove(connectionString.length, 1)
     })
 
-    it('connects to MogoDB', function(done) {
+    it('connects to MongoDB', function(done) {
         db = mongoose.connection
         db.on('error', done)
         db.once('open', function() {

@@ -1,5 +1,3 @@
-/* This is a test 2 */
-
 var express = require('express');
 var app = express();
 
@@ -58,9 +56,6 @@ app.get('/database', function (req, res) {
 });
 
 
-module.exports = new Promise( resolve => app.listen(PORT, resolve) )
-                    .then((listener) => {
-                        console.log(`Example app listening on port ${listener.address().port}!`);
-                        return listener;
-                    });
-
+app.listen(PORT, function() {
+  console.log(`Example app listening on port ${PORT}!`)
+});
