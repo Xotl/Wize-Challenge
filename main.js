@@ -7,11 +7,7 @@ var util = require('./utils');
 var mongoose = require('mongoose');
 
 const 
-  PORT = process.env.PORT || 3000,
-  catsSchema = mongoose.Schema({
-    name: String,
-    color:  String
-  });
+  PORT = process.env.PORT || 3000;
 
 
 var options = {};
@@ -20,6 +16,23 @@ var connectionString = process.env.MONGODB_CONNECTION_STRING;
 if (!connectionString.startsWith('mongodb://')){
   connectionString = `mongodb://${connectionString}`;
 }
+
+
+
+var
+  catsSchema, Cats
+  db = mongoose.connection;
+
+db.on('error', console.error);
+db.once('open', function() {
+  catsSchema = mongoose.Schema({
+    name: String,
+    color:  String
+  });
+
+  cats = mongoose.model('cats', catsSchema);
+  console.log("Mongoose initialized!");
+});
 
 mongoose.connect(connectionString, options);
 
@@ -35,9 +48,7 @@ app.get('/health', function (req, res) {
 });
 
 app.get('/database', function (req, res) {
-
   
-  var cats = mongoose.model('cats', catsSchema);
   util.mongooseFind(cats)
     .then( results => res.send(results) )
     .catch( err => {
