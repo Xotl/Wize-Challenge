@@ -37,7 +37,10 @@ app.get('/database', function (req, res) {
 
   var cats = mongoose.model('cats', catsSchema);
   util.mongooseFind(cats)
-    .then( results => res.send(results) )
+    .then( results => {
+      console.log(results);
+      res.send(results)
+    } )
     .catch( err => {
       res.send(err)
       console.error(err)

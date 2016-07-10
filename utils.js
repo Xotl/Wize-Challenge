@@ -36,11 +36,11 @@ const mongoose = require('mongoose')
 module.exports = {
   mongooseFind: model => {
     return new Promise( (resolve, reject) => {
-      model.find(function (err, person) {
+      model.find({}, function (err, result) {
         if (err) {
           reject(err)
         }
-        resolve(person)
+        resolve(result)
       })
     } )
 
