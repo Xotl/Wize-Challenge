@@ -34,6 +34,10 @@ describe('Enpoints', function() {
     request.get(`${serverURL}/database`, function (error, response, body) {
       assert.isDefined(response)
       assert.equal(response.statusCode, 200)
+      assert.isString(body)
+      body = JSON.parse(body)
+      assert.isArray(body)
+      assert.isAbove(body.length, 0)
       done(error)
     })
   })
