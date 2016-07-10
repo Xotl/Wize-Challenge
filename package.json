@@ -5,7 +5,7 @@
   "main": "main.js",
   "scripts": {
     "start": "node main.js",
-    "test": "./node_modules/mocha/bin/mocha ./tests/test.js"
+    "test": "./node_modules/mocha/bin/mocha ./tests/"
   },
   "author": "kinduff <abarcadabra@gmail.com>",
   "license": "ISC",

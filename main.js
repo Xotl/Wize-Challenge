@@ -13,7 +13,7 @@ const
 var options = {};
 var connectionString = process.env.MONGODB_CONNECTION_STRING;
 
-if (!connectionString.startsWith('mongodb://')){
+if (!connectionString.startsWith('mongodb://')) {
   connectionString = `mongodb://${connectionString}`;
 }
 
@@ -57,6 +57,10 @@ app.get('/database', function (req, res) {
     })
 });
 
-app.listen(PORT, function () {
-  console.log(`Example app listening on port ${PORT}!`);
-});
+
+module.exports = new Promise( resolve => app.listen(PORT, resolve) )
+                    .then((listener) => {
+                        console.log(`Example app listening on port ${listener.address().port}!`);
+                        return listener;
+                    });
+
