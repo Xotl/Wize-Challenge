@@ -1,5 +1,3 @@
-/* This is a test 2 */
-
 var express = require('express');
 var app = express();
 
@@ -13,7 +11,7 @@ const
 var options = {};
 var connectionString = process.env.MONGODB_CONNECTION_STRING;
 
-if (!connectionString.startsWith('mongodb://')){
+if (!connectionString.startsWith('mongodb://')) {
   connectionString = `mongodb://${connectionString}`;
 }
 
@@ -57,6 +55,7 @@ app.get('/database', function (req, res) {
     })
 });
 
-app.listen(PORT, function () {
-  console.log(`Example app listening on port ${PORT}!`);
+
+app.listen(PORT, function() {
+  console.log(`Example app listening on port ${PORT}!`)
 });

@@ -15,9 +15,14 @@ install:
   - docker run --name mongo-test -d mongo
   - docker build -t xotl/wize-challenge .
 
+before_script:
+  - docker run -d --name wize-challenge --link mongo-test:mongodb -e MONGODB_CONNECTION_STRING=$MONGODB_CONN_STRING -p 3000:3000 xotl/wize-challenge
+
 script:
-  - docker run -it --name wize-challenge --link mongo-test:mongodb -e MONGODB_CONNECTION_STRING=mongodb://mongodb/exampledb -p 3000:3000 xotl/wize-challenge npm test
+  - docker run -it --name wize-challenge-tests --link mongo-test:mongodb --link wize-challenge:wize-app -e MONGODB_CONNECTION_STRING=$MONGODB_CONN_STRING -e SERVER_TEST_URL=$SERVER_TEST_URL xotl/wize-challenge npm test
 
 after_success:
- - echo "Build succeded"
- - docker login -e="$DOCKER_EMAIL" -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"
+  - if [ "$TRAVIS_BRANCH" == "master" ]; then
+    docker login -e="$DOCKER_EMAIL" -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD";
+    docker push $DOCKER_USERNAME/wize-challenge;
+    fi
