@@ -40,6 +40,7 @@ module.exports = {
         if (err) {
           reject(err)
         }
+        console.log(result)
         resolve(result)
       })
     } )

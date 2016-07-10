@@ -19,10 +19,7 @@ if (!connectionString.startsWith('mongodb://')){
 
 mongoose.connect(connectionString, options);
 
-const catsSchema = mongoose.Schema({
-  name: String,
-  color:  String
-});
+
 
 
 app.get('/', function (req, res) {
@@ -35,12 +32,13 @@ app.get('/health', function (req, res) {
 
 app.get('/database', function (req, res) {
 
+  var catsSchema = mongoose.Schema({
+    name: String,
+    color:  String
+  });
   var cats = mongoose.model('cats', catsSchema);
   util.mongooseFind(cats)
-    .then( results => {
-      console.log(results);
-      res.send(results)
-    } )
+    .then( results => res.send(results) )
     .catch( err => {
       res.send(err)
       console.error(err)
