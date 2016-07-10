@@ -1,0 +1,28 @@
+
+language: node_js
+node_js:
+  - "6"
+
+services:
+  - docker
+
+before_install:
+  - docker pull node:6.3.0-slim
+  - docker pull mongo:3.2
+  - docker run --name mongo-test -d mongo
+  - docker build -t xotl/Wize-Challenge
+  - docker run -d --name wize-challenge --link mongo-test:mongodb -e MONGODB_CONNECTION_STRING=mongodb://mongodb/exampledb xotl/Wize-Challenge
+  - docker ps -a
+
+install:
+  - npm install
+
+script:
+  - bundle exec npm start
+
+after_success:
+ - if [ "$TRAVIS_BRANCH" == "master" ]; then
+      echo "Build succeded"
+      # docker login -e="$DOCKER_EMAIL" -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD";
+      # docker push USER/REPO;
+    fi
