@@ -5,7 +5,7 @@
   "main": "main.js",
   "scripts": {
     "start": "node main.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "./node_modules/mocha/bin/mocha ./tests/test.js"
   },
   "author": "kinduff <abarcadabra@gmail.com>",
   "license": "ISC",
@@ -15,5 +15,10 @@
   "dependencies": {
     "express": "^4.13.4",
     "mongoose": "^4.4.5"
+  },
+  "devDependencies": {
+    "mocha": ">=2.5.3",
+    "chai": ">=3.5.0",
+    "request": ">=2.73.0"
   }
 }
