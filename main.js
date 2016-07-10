@@ -36,7 +36,7 @@ app.get('/health', function (req, res) {
 app.get('/database', function (req, res) {
 
   var cats = mongoose.model('cats', catsSchema);
-  mongooseFind(cats)
+  util.mongooseFind(cats)
     .then( results => res.send(results) )
     .catch( err => {
       res.send(err)
