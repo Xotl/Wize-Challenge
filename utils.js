@@ -1,5 +1,8 @@
-var createConnectionString = function (conf) {
-  'mongodb://[username:password@]host1[:port1][,host2[:port2],...[,hostN[:portN]]][/[database][?options]]';
+const mongoose = require('mongoose')
+
+
+/* var createConnectionString = function (conf) {
+  // 'mongodb://[username:password@]host1[:port1][,host2[:port2],...[,hostN[:portN]]][/[database][?options]]';
   var str = 'mongodb://';
 
   if (conf.user && conf.password)
@@ -26,6 +29,55 @@ var createConnectionString = function (conf) {
   return str;
 };
 
+*/
+
+
+
 module.exports = {
-  createConnectionString: createConnectionString
+  mongooseFind: model => {
+    return Promise( (resolve, reject) => {
+      model.find(function (err, person) {
+        if (err) {
+          reject(err)
+        }
+        resolve(person)
+      })
+    } )
+
+  },
+
+  createConnectionString: conf => {
+    var login = ''
+      
+    if (conf.user && conf.password) {
+      login = conf.user + ':' + conf.password + '@'
+    }
+
+    if (!Array.isArray(conf.servers) || conf.servers.length < 1) {
+      console.error('=> Must provide at least one Database server');
+      process.exit(1);
+    }
+
+    if (typeof conf.database !== "string" || conf.database.length === 0) {
+      console.error('=> Database name should be nonempty string');
+      process.exit(1);
+    }
+
+    const
+      database = conf.database,
+      hosts = conf.servers.reduce((str, server, index) => {
+
+        if (index === 1) {
+          str = `${str}`
+          
+          if (!server) {
+            return
+          } 
+        }
+
+        return `${str},${}`
+      }, '')
+
+    return `mongodb://${login}${hosts}/${database}`;
+  }
 }

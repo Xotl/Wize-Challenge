@@ -3,7 +3,7 @@
 var express = require('express');
 var app = express();
 
-// var util = require('./utils');
+var util = require('./utils');
 var mongoose = require('mongoose');
 
 const 
@@ -26,6 +26,17 @@ app.get('/', function (req, res) {
 
 app.get('/health', function (req, res) {
   res.send('All good');
+});
+
+app.get('/database', function (req, res) {
+
+  var restaurants = mongoose.model('restaurants');
+  mongooseFind(restaurants)
+    .then( results => res.send(results) )
+    .catch( err => {
+      res.send(err)
+      console.error(err)
+    })
 });
 
 app.listen(PORT, function () {
