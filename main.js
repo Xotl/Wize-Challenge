@@ -6,28 +6,22 @@ var app = express();
 var util = require('./utils');
 var mongoose = require('mongoose');
 
+const 
+  PORT = process.env.PORT || 3000;
+
 /**
  * Require databse configuration depending on environment
  */
 var conf = {
-  development: {
-    servers: [['127.0.0.1', 27017]],
-    database: 'db_name',
-    user: '',
-    password: '',
-    replicaSet: null,
-  },
-  production: {
     servers: [[process.env.DATABASE_IP, process.env.DATABASE_PORT]],
     database: process.env.DATABASE_NAME,
     user: process.env.DATABASE_USER,
     password: process.env.DATABASE_PASSWORD,
-    replicaSet: null,
-  }
+    replicaSet: null
 };
 var options = {};
 
-var connectionString = util.createConnectionString(conf['development']);
+var connectionString = util.createConnectionString(conf);
 
 
 if (conf.replicaSet) {
@@ -45,6 +39,6 @@ app.get('/health', function (req, res) {
   res.send('All good');
 });
 
-app.listen(3000, function () {
-  console.log('Example app listening on port 3000!');
+app.listen(PORT, function () {
+  console.log(`Example app listening on port ${PORT}!`);
 });
