@@ -1,16 +1,23 @@
 
 language: node_js
+
 node_js:
   - "6"
+
 services:
   - docker
+
 before_install:
   - docker pull node:6.3.0-slim
   - docker pull mongo:3.2
+
+install:
   - docker run --name mongo-test -d mongo
   - docker build -t xotl/wize-challenge .
+
 script:
   - docker run -it --name wize-challenge --link mongo-test:mongodb -e MONGODB_CONNECTION_STRING=mongodb://mongodb/exampledb -p 3000:3000 xotl/wize-challenge npm test
+
 after_success:
  - echo "Build succeded"
  - docker login -e="$DOCKER_EMAIL" -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"
