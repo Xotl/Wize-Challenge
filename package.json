@@ -2,12 +2,16 @@
   "name": "wize-devops",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "main.js",
   "scripts": {
+    "start": "main.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "kinduff <abarcadabra@gmail.com>",
   "license": "ISC",
+  "engines" : { 
+    "node" : ">=6.3.0"
+  },
   "dependencies": {
     "express": "^4.13.4",
     "mongoose": "^4.4.5"
