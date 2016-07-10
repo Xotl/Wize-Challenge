@@ -5,7 +5,11 @@ const
 
 
 describe('Enpoints', function() {
-  const serverURL = process.env.SERVER_TEST_URL
+  var serverURL = process.env.SERVER_TEST_URL
+
+  if (!serverURL.startsWith('http://')) {
+    serverURL = `http://${serverURL}`;
+  }
 
 
   it('reponds on "/" correctly', function(done) {
