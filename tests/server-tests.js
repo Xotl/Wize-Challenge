@@ -8,29 +8,29 @@ describe('Enpoints', function() {
   const serverURL = process.env.SERVER_TEST_URL
 
 
-  it('reponds on "/"', function(done) {
+  it('reponds on "/" correctly', function(done) {
     request.get(`${serverURL}/`, function (error, response, body) {
-      if (error) done(error)
+      assert.isDefined(response)
       assert.equal(response.statusCode, 200)
       assert.equal(body, 'Hello World!')
-      done()
+      done(error)
     })
   })
 
-  it('reponds on "/health"', function(done) {
+  it('reponds on "/health" correctly', function(done) {
     request.get(`${serverURL}/health`, function (error, response, body) {
-      if (error) done(error)
+      assert.isDefined(response)
       assert.equal(response.statusCode, 200)
       assert.equal(body, 'All good')
-      done()
+      done(error)
     })
   })
 
-  it('reponds on "/database"', function(done) {
+  it('reponds on "/database" correctly', function(done) {
     request.get(`${serverURL}/database`, function (error, response, body) {
-      if (error) done(error)
+      assert.isDefined(response)
       assert.equal(response.statusCode, 200)
-      done()
+      done(error)
     })
   })
 

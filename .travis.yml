@@ -19,7 +19,7 @@ before_script:
   - docker run -d --name wize-challenge --link mongo-test:mongodb -e MONGODB_CONNECTION_STRING=$MONGODB_CONN_STRING -p 3000:3000 xotl/wize-challenge
 
 script:
-  - docker run -it --name wize-challenge-tests --link mongo-test:mongodb --link wize-challenge:wize-app -e MONGODB_CONNECTION_STRING=$MONGODB_CONN_STRING -e SERVER_TEST_URL=wize-app xotl/wize-challenge npm test
+  - docker run -it --name wize-challenge-tests --link mongo-test:mongodb --link wize-challenge:wize-app -e MONGODB_CONNECTION_STRING=$MONGODB_CONN_STRING -e SERVER_TEST_URL=$SERVER_TEST_URL xotl/wize-challenge npm test
 
 after_success:
  - echo "Build succeded"
