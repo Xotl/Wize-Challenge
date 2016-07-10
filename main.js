@@ -30,7 +30,7 @@ db.once('open', function() {
     color:  String
   });
 
-  cats = mongoose.model('cats', catsSchema);
+  Cats = mongoose.model('cats', catsSchema);
   console.log("Mongoose initialized!");
 });
 
@@ -49,7 +49,7 @@ app.get('/health', function (req, res) {
 
 app.get('/database', function (req, res) {
   
-  util.mongooseFind(cats)
+  util.mongooseFind(Cats)
     .then( results => res.send(results) )
     .catch( err => {
       res.send(err)
