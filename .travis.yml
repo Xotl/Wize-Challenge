@@ -22,7 +22,7 @@ script:
   - docker run -it --name wize-challenge-tests --link mongo-test:mongodb --link wize-challenge:wize-app -e MONGODB_CONNECTION_STRING=$MONGODB_CONN_STRING -e SERVER_TEST_URL=$SERVER_TEST_URL xotl/wize-challenge npm test
 
 after_success:
-  - if [ "$TRAVIS_BRANCH" == "master" ]; then
+  - if [ "$TRAVIS_BRANCH" == "master"] && ["$TRAVIS_EVENT_TYPE" == "push"]; then
     docker login -e="$DOCKER_EMAIL" -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD";
     docker push $DOCKER_USERNAME/wize-challenge;
     fi
