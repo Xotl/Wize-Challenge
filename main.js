@@ -42,7 +42,7 @@ app.get('/', function (req, res) {
 });
 
 app.get('/change', function (req, res) {
-  res.send('Hello World!');
+  res.send('Changed!');
 });
 
 app.get('/health', function (req, res) {
