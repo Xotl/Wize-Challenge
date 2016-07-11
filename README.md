@@ -2,8 +2,7 @@
 
 [![Build Status](https://travis-ci.org/Xotl/Wize-Challenge.svg?branch=master)](https://travis-ci.org/Xotl/Wize-Challenge)
 
-
-## How to run it using docker
+## How to run it using docker. (Developer)
 
 - *(Optional)* Create a mongo instance with `docker run --name mongo-test -d mongo:3.2.7`.
     - You can add documents by entering Mongo CLI with `docker exec -it mongo-test mongo admin`
