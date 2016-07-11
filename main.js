@@ -42,7 +42,7 @@ app.get('/', function (req, res) {
 });
 
 app.get('/change', function (req, res) {
-  res.send('Changed!');
+  res.send('Wize presentation!');
 });
 
 app.get('/health', function (req, res) {
